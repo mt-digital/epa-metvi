@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>metacorps</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h1><i><a href="/">metacorps</a></i></h1>
+    <h2>Tools for critical metaphor analysis over corpora</h2>
+    <a href="/projects/{{project['id']}}"><i>back to project view</i></a>
+
+    <hr>
+
+    <h3>{{ project['name']}}</h3>
+    <h4>Facet: {{ facet['word'] }}</h4>
+
+    <br>
+
+    {% for inst in facet.instances %}
+
+      <br>
+      <!-- XXX Set an anchor here! XXX -->
+      <a name="{{loop.index}}"></a>
+      <h5>Instance {{loop.index}}
+
+        <p>{{iatv_documents[loop.index0].program_name}}; {{iatv_documents[loop.index0].network}}</p>
+        <p>Published {{iatv_documents[loop.index0].start_localtime}}</p>
+        <p><a href="{{iatv_documents[loop.index0].iatv_url}}">Source on IATV</a></p>
+
+        <!-- <i><a href="{{url_for('edit_instance', project_id=project['id'], facet_word=facet['word'], instance_idx=loop.index0)}}">edit</a></i> -->
+        <i><a href="#{{loop.index}}" id="edit-trigger-{{loop.index0}}"
+              onclick="editInstance({{loop.index0}})">
+            Edit</a></i>
+      </h5>
+
+
+      <p><b>Context:</b> {{ inst['text'].replace(facet['word'].strip().upper(), '<b style="color:red;font-size:16pt">' + facet['word'].lower()+ '</b>') | safe }} </p>
+      <div id="details-{{loop.index0}}">
+        <p style="font-size:18pt"><b>Figurative?</b> {{inst['figurative']}}  |   <b>Include?</b> {{inst['include']}}</p>
+        <p style="font-size:18pt"><b>Repeat?</b> {{inst['repeat']}}  |   <b>Rerun?</b> {{inst['rerun']}}</p>
+        <p><b>Repeat index:</b> {{inst['repeat_index']}}</p>
+        <p><b>Conceptual metaphor:</b> {{inst['conceptual_metaphor']}}</p>
+        <p><b>Spoken by:</b> {{inst['spoken_by']}}</p>
+        <p><b>Subject(s):</b> {{inst['subjects']}}</p>
+        <p><b>Object(s):</b> {{inst['objects']}}</p>
+        <p><b>Description:</b> {{inst['description']}}</p>
+        <p><b>Tense:</b> {{inst['tense']}}</p>
+        <p><b>Active/Passive:</b> {{inst['active_passive']}}</p>
+      </div>
+      {% if not loop.last %}
+      <hr>
+      <br>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script src="/static/js/conceptual_metaphor.js"></script>
+  <script src="/static/js/editInstance.js"></script>
+</body>
+</html>

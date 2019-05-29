@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>metacorps</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1><i>metacorps</i></h1>
+        <h2>Tools for critical metaphor analysis over corpora</h2>
+
+        <hr>
+
+        <p>
+            To get started, select one of the projects below
+        </p>
+
+        <ol>
+            {% for project in projects %}
+                <li>
+                    <a href="/projects/{{project['id']}}">
+                        {{project['name']}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="container">
+      <h2 style="text-decoration:underline">Log</h2>
+      <h4>Add new log entry</h4>
+      <form action="/" method="POST">
+        {{ form.csrf_token }}
+
+        <div class="row">
+          {{ form.message(rows='5', cols='80') }}
+        </div>
+        <div class="row"><input type="submit" value="Save"></div>
+      </form>
+    </div>
+    <br>
+    <div class="container">
+      {% for log_entry in log %}
+        <div class="row">
+          <h5>
+            {{ log_entry.time_posted }}
+          </h5>
+          <h5>
+            {{ log_entry.user_email }}
+          </h5>
+          <div>{{ log_entry.message }}</div>
+          {% if not loop.last %}
+            <hr>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+</body>
+</html>

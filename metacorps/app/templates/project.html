@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>metacorps</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1><i><a href="/">metacorps</a></i></h1>
+        <h2>Tools for critical metaphor analysis over corpora</h2>
+        <a href="/"><i>back to projects</i></a>
+
+        <hr>
+
+        <h3>{{ project['name']}}</h3>
+
+        <br>
+
+        <table width="600">
+            <caption>Select a facet to analyze</caption>
+            <thead>
+                <tr>
+                    <th>Facet</th>
+                    <th>Total instances</th>
+                    <!-- <th>Number reviewed</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                    {% for facet in facets %}
+                        <tr>
+                            <td>
+                                <a href="/projects/{{project['id']}}/facets/{{facet['word']}}">
+                                    {{facet['word']}}
+                                </a>
+                            </td>
+                            <td>{{facet['total_count']}}</td>
+                            <!-- <td>{{facet['number_reviewed']}}</td> -->
+                        </tr>
+                    {% endfor %}
+                <!-- <tr> -->
+                <!--     <td>hit</td> -->
+                <!--     <td>234</td> -->
+                <!--     <td>29</td> -->
+                <!-- </tr> -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
